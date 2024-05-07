@@ -1,13 +1,25 @@
-function rightSideView(root) {
-  if (!root) return [];
-  const result = [];
-  let level = 0;
-  const traverse = (node, level) => {
-    if (!node) return;
-    if (result[level] === undefined) result[level] = node.val;
-    traverse(node.right, level + 1);
-    traverse(node.left, level + 1);
-  };
-  traverse(root, level);
-  return result;
+function trap(height) {
+  let totalWater = 0;
+  let left = 0;
+  let right = height.length - 1;
+  let maxLeft = 0;
+  let maxRight = 0;
+  while (left < right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= maxLeft) {
+        maxLeft = height[left];
+      } else {
+        totalWater += maxLeft - height[left];
+      }
+      left++;
+    } else {
+      if (height[right] >= maxRight) {
+        maxRight = height[right];
+      } else {
+        totalWater += maxRight - height[right];
+      }
+      right--;
+    }
+  }
+  return totalWater;
 }
